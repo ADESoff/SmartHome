@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SmartHome</string>
+    <string name="app_logo">Логотип приложения</string>
+    <string name="email_hint">Электронная почта</string>
+    <string name="password_hint">Пароль</string>
+    <string name="login_button">Войти</string>
+    <string name="forgot_password">Забыли пароль?</string>
 </resources>
