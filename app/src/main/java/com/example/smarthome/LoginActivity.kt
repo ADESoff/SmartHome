@@ -31,7 +31,8 @@ class LoginActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             if (validate()) {
                 // Логика входа
-                Toast.makeText(this, "Вход выполнен", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
             }
         }
 
