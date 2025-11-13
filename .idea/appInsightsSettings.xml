@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.smarthome" />
+                  <option name="mobileSdkAppId" value="1:943115006198:android:7737f08a6e661e8f2d3cd7" />
+                  <option name="projectId" value="smarthome-e2d5c" />
+                  <option name="projectNumber" value="943115006198" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

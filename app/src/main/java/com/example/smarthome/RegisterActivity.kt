@@ -10,8 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+
     private lateinit var etName: TextInputEditText
     private lateinit var etEmail: TextInputEditText
     private lateinit var etPassword: TextInputEditText
@@ -23,6 +28,8 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        auth = FirebaseAuth.getInstance()
+
         etName = findViewById(R.id.etName)
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
@@ -31,11 +38,13 @@ class RegisterActivity : AppCompatActivity() {
         tvLoginInstead = findViewById(R.id.tvLoginInstead)
 
         btnRegister.setOnClickListener {
-            if (validate()) {
-                // Регистрация
-                Toast.makeText(this, "Регистрация успешна!", Toast.LENGTH_SHORT).show()
-            }
+                createAccount()
         }
+
+        findViewById<TextView>(R.id.tvLoginInstead).setOnClickListener {
+            finish() // вернуться на экран входа
+        }
+
         val tvLoginInstead = findViewById<TextView>(R.id.tvLoginInstead)
         tvLoginInstead.setOnClickListener {
             //val intent = Intent(this, LoginActivity::class.java)
@@ -44,19 +53,28 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-
-
-    private fun validate(): Boolean {
-        val name = etName.text.toString().trim()
+    private fun createAccount() {
         val email = etEmail.text.toString().trim()
         val password = etPassword.text.toString().trim()
         val confirmPassword = etConfirmPassword.text.toString().trim()
 
-        return when {
-            name.isEmpty() -> {
-                etName.error = "Введите имя"
-                false
+        if (!validate(email, password, confirmPassword)) return
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Успешная регистрация
+                    Toast.makeText(this, "Аккаунт создан!", Toast.LENGTH_SHORT).show()
+                    finish() // возврат на логин
+                } else {
+                    // Ошибка
+                    Toast.makeText(this, "Ошибка: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
             }
+    }
+
+    private fun validate(email: String, password: String, confirmPassword: String): Boolean {
+        return when {
             email.isEmpty() -> {
                 etEmail.error = "Введите email"
                 false

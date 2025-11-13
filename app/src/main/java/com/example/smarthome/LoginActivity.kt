@@ -10,8 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+
     private lateinit var etEmail: TextInputEditText
     private lateinit var etPassword: TextInputEditText
     private lateinit var btnLogin: Button
@@ -22,6 +26,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         // Инициализация полей
+        auth = FirebaseAuth.getInstance()
+
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
         btnLogin = findViewById(R.id.btnLogin)
@@ -29,11 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Обработка клика по кнопке входа
         btnLogin.setOnClickListener {
-            if (validate()) {
-                // Логика входа
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-            }
+            signIn()
         }
 
         // 👇 Переход на экран регистрации
@@ -44,10 +46,27 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun validate(): Boolean {
+    private fun signIn() {
         val email = etEmail.text.toString().trim()
         val password = etPassword.text.toString().trim()
 
+        if (!validate(email, password)) return
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Успешный вход
+                    Toast.makeText(this, "Добро пожаловать!", Toast.LENGTH_SHORT).show()
+                    // Здесь можно перейти на HomeActivity
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(this, "Неверный email или пароль", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun validate(email: String, password: String): Boolean {
         return when {
             email.isEmpty() -> {
                 etEmail.error = "Введите email"
