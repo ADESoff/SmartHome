@@ -12,9 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartHome">
         <activity
-            android:name=".SettingsActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".DeviceDetailActivity"
             android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />

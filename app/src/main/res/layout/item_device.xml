@@ -10,11 +10,11 @@
     app:cardBackgroundColor="#F5F5F5">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="164dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center">
+        android:padding="16dp">
 
         <!-- Иконка устройства -->
 
@@ -23,7 +23,7 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_light" />
+            android:src="@drawable/img" />
 
         <!-- Название устройства -->
 
@@ -31,21 +31,21 @@
             android:id="@+id/tvDeviceName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Лампа гостиная"
+            android:layout_marginTop="8dp"
+            android:text="Чайник"
             android:textColor="@color/black"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp" />
+            android:textStyle="bold" />
 
         <!-- Статус устройства -->
         <TextView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Включено"
             android:textColor="@color/blue_500"
-            android:textSize="12sp"
-            android:layout_marginTop="4dp" />
+            android:textSize="12sp" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/swToggle"

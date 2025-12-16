@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
         btnLogin = findViewById(R.id.btnLogin)
-        tvCreateAccount = findViewById(R.id.tvCreateAccount)
+        tvCreateAccount = findViewById(R.id.tvRegister)
 
         // Обработка клика по кнопке входа
         btnLogin.setOnClickListener {
